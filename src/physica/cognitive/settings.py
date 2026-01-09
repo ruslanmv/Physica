@@ -5,11 +5,11 @@ Supports multiple providers with environment variable fallbacks and disk persist
 
 from __future__ import annotations
 
+import contextlib
 import enum
 import json
 import os
 from pathlib import Path
-from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -87,10 +87,8 @@ class PhysicaSettings(BaseModel):
         # Override with environment variables
         env_provider = os.getenv("PHYSICA_PROVIDER")
         if env_provider:
-            try:
+            with contextlib.suppress(ValueError):
                 settings.provider = LLMProvider(env_provider.lower())
-            except ValueError:
-                pass  # Invalid provider, keep existing
 
         # OpenAI environment variables
         if os.getenv("OPENAI_API_KEY"):

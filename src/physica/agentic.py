@@ -16,7 +16,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import numpy as np
 
-from .cognitive.intent import PhysicsIntent, PlanningAgent
+from .cognitive.intent import PlanningAgent
 from .cognitive.llm import LLMBackend, MockLLM
 from .conservation.laws import ConservationValidator
 from .neuro_physical_loop import NeuroPhysicalLoop

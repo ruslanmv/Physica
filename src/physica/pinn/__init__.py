@@ -4,7 +4,7 @@ This module provides the learning layer that enables AI systems to learn
 from physical constraints and correct predictions based on causal relationships.
 """
 
-from .base import PINN, PINNConfig, PhysicsLoss
+from .base import PINN, PhysicsLoss, PINNConfig
 from .electromagnetism import (
     ElectrostaticsPINN,
     MagnetostaticsPINN,

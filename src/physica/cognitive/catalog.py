@@ -33,13 +33,14 @@ TODAY = datetime.today().strftime("%Y-%m-%d")
 def _is_deprecated_or_withdrawn(lifecycle: list) -> bool:
     """Check if a model is deprecated or withdrawn."""
     for entry in lifecycle:
-        if entry.get("id") in {"deprecated", "withdrawn"}:
-            if entry.get("start_date", "") <= TODAY:
-                return True
+        if entry.get("id") in {"deprecated", "withdrawn"} and entry.get("start_date", "") <= TODAY:
+            return True
     return False
 
 
-def list_openai_models(settings: Optional[PhysicaSettings] = None) -> Tuple[List[str], Optional[str]]:
+def list_openai_models(
+    settings: Optional[PhysicaSettings] = None,
+) -> Tuple[List[str], Optional[str]]:
     """List available OpenAI models.
 
     Parameters
@@ -78,7 +79,9 @@ def list_openai_models(settings: Optional[PhysicaSettings] = None) -> Tuple[List
         return [], f"Error listing OpenAI models: {e}"
 
 
-def list_claude_models(settings: Optional[PhysicaSettings] = None) -> Tuple[List[str], Optional[str]]:
+def list_claude_models(
+    settings: Optional[PhysicaSettings] = None,
+) -> Tuple[List[str], Optional[str]]:
     """List available Claude models.
 
     Parameters
@@ -121,7 +124,9 @@ def list_claude_models(settings: Optional[PhysicaSettings] = None) -> Tuple[List
         return [], f"Error listing Claude models: {e}"
 
 
-def list_watsonx_models(settings: Optional[PhysicaSettings] = None) -> Tuple[List[str], Optional[str]]:
+def list_watsonx_models(
+    settings: Optional[PhysicaSettings] = None,
+) -> Tuple[List[str], Optional[str]]:
     """List available Watsonx foundation models.
 
     No API key required for listing IBM-managed models.
@@ -163,7 +168,9 @@ def list_watsonx_models(settings: Optional[PhysicaSettings] = None) -> Tuple[Lis
     return sorted(all_models), None
 
 
-def list_ollama_models(settings: Optional[PhysicaSettings] = None) -> Tuple[List[str], Optional[str]]:
+def list_ollama_models(
+    settings: Optional[PhysicaSettings] = None,
+) -> Tuple[List[str], Optional[str]]:
     """List available Ollama models from local/remote server.
 
     Parameters

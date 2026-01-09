@@ -10,9 +10,7 @@ You can build richer agent/critic loops on top of these building blocks.
 """
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, Optional, Tuple
-
-import numpy as np
+from typing import Any, Dict, Tuple
 
 from .engine import BallisticSimulator, TrajectoryResult
 

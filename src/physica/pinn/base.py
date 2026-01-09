@@ -4,9 +4,8 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple
 
-import numpy as np
 import torch
 import torch.nn as nn
 
@@ -175,10 +174,7 @@ class PINN(nn.Module):
         x = x.requires_grad_(True)
         y = self.forward(x)
 
-        if y.shape[-1] == 1:
-            y_selected = y
-        else:
-            y_selected = y[:, output_idx:output_idx+1]
+        y_selected = y if y.shape[-1] == 1 else y[:, output_idx:output_idx+1]
 
         # First order derivatives
         grads_1 = []
