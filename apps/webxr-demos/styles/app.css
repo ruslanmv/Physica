@@ -1,0 +1,54 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #0b0f14;
+  color: #e7eef7;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+#app, #container {
+  position: fixed;
+  inset: 0;
+}
+
+.hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 14px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0));
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.hud .title {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  font-size: 13px;
+}
+
+.hud .hint {
+  opacity: 0.85;
+  font-size: 12px;
+}
+
+.hud .stats {
+  opacity: 0.9;
+  font-size: 12px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  margin-right: 8px;
+  font-size: 12px;
+  opacity: 0.95;
+}
