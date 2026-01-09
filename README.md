@@ -410,7 +410,7 @@ Apache License 2.0 - See [LICENSE](LICENSE) for details.
 
 For questions, collaborations, or inquiries:
 
-- **Email**: ruslan@example.com
+- **Email**: contact@ruslanmv.com
 - **GitHub**: [github.com/ruslanmv/Physica](https://github.com/ruslanmv/Physica)
 
 ---
