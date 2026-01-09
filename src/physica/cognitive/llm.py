@@ -9,9 +9,9 @@ from __future__ import annotations
 import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any, List, Optional
 
-from .settings import get_settings, LLMProvider
+from .settings import LLMProvider, get_settings
 
 
 @dataclass
@@ -141,7 +141,7 @@ class ClaudeLLM(LLMBackend):
             raise ImportError(
                 "anthropic package required for Claude backend. "
                 "Install with: pip install 'physica[llm]'"
-            )
+            ) from None
 
         self.api_key = api_key or os.getenv("ANTHROPIC_API_KEY")
         if not self.api_key:
@@ -206,7 +206,7 @@ class OpenAILLM(LLMBackend):
             raise ImportError(
                 "openai package required for OpenAI backend. "
                 "Install with: pip install 'physica[llm]'"
-            )
+            ) from None
 
         self.api_key = api_key or os.getenv("OPENAI_API_KEY")
         if not self.api_key:
@@ -270,7 +270,7 @@ class WatsonxLLM(LLMBackend):
             raise ImportError(
                 "ibm-watsonx-ai package required for Watsonx backend. "
                 "Install with: pip install ibm-watsonx-ai"
-            )
+            ) from None
 
         self.api_key = api_key or os.getenv("WATSONX_API_KEY")
         self.project_id = project_id or os.getenv("WATSONX_PROJECT_ID")
@@ -473,7 +473,7 @@ def build_crewai_llm() -> Any:
         raise ImportError(
             "crewai package required for CrewAI integration. "
             "Install with: pip install crewai"
-        )
+        ) from None
 
     settings = get_settings()
     provider = settings.provider

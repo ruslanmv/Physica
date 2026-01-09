@@ -7,7 +7,6 @@ while respecting electromagnetic conservation laws.
 from __future__ import annotations
 
 import torch
-import torch.nn as nn
 from scipy.constants import c, epsilon_0, mu_0
 
 from .base import PINN
@@ -28,7 +27,7 @@ class MaxwellPINN(PINN):
 
     def __init__(
         self,
-        hidden_layers: list[int] = [64, 64, 64],
+        hidden_layers: list[int] | None = None,
         activation: str = "tanh",
     ):
         """Initialize Maxwell PINN.
@@ -40,6 +39,8 @@ class MaxwellPINN(PINN):
         activation:
             Activation function name.
         """
+        if hidden_layers is None:
+            hidden_layers = [64, 64, 64]
         super().__init__(
             input_dim=4,  # (t, x, y, z)
             output_dim=6,  # (Ex, Ey, Ez, Bx, By, Bz)
@@ -196,7 +197,7 @@ class ElectrostaticsPINN(PINN):
 
     def __init__(
         self,
-        hidden_layers: list[int] = [64, 64, 64],
+        hidden_layers: list[int] | None = None,
         activation: str = "tanh",
     ):
         """Initialize electrostatics PINN.
@@ -208,6 +209,8 @@ class ElectrostaticsPINN(PINN):
         activation:
             Activation function name.
         """
+        if hidden_layers is None:
+            hidden_layers = [64, 64, 64]
         super().__init__(
             input_dim=3,  # (x, y, z)
             output_dim=1,  # φ
@@ -330,7 +333,7 @@ class MagnetostaticsPINN(PINN):
 
     def __init__(
         self,
-        hidden_layers: list[int] = [64, 64, 64],
+        hidden_layers: list[int] | None = None,
         activation: str = "tanh",
     ):
         """Initialize magnetostatics PINN.
@@ -342,6 +345,8 @@ class MagnetostaticsPINN(PINN):
         activation:
             Activation function name.
         """
+        if hidden_layers is None:
+            hidden_layers = [64, 64, 64]
         super().__init__(
             input_dim=3,  # (x, y, z)
             output_dim=3,  # (Ax, Ay, Az)

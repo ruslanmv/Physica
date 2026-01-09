@@ -7,11 +7,11 @@ thermodynamic cycles, heat engines, and phase transitions.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Callable, Optional, Tuple
+from typing import Tuple
 
 import numpy as np
-from scipy.constants import R, k as k_B
-from scipy.optimize import fsolve
+from scipy.constants import R
+from scipy.constants import k as k_B
 
 
 @dataclass
@@ -447,7 +447,6 @@ class EntropyCalculator:
         delta_S:
             Entropy change (J/K).
         """
-        cp = cv + R
         delta_S = state1.n * (
             cv * np.log(state2.T / state1.T) + R * np.log(state2.V / state1.V)
         )

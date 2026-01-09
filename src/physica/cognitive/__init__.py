@@ -4,27 +4,27 @@ This module provides the interface between natural language intent and
 formal physical parameters. Supports multiple LLM providers with CrewAI compatibility.
 """
 
+from .catalog import (
+    get_available_models,
+    list_models_for_provider,
+)
 from .intent import IntentParser, PhysicsIntent, PlanningAgent
 from .llm import (
+    ClaudeLLM,
     LLMBackend,
     MockLLM,
-    OpenAILLM,
-    ClaudeLLM,
-    WatsonxLLM,
     OllamaLLM,
-    get_llm_backend,
+    OpenAILLM,
+    WatsonxLLM,
     build_crewai_llm,
+    get_llm_backend,
 )
 from .settings import (
-    PhysicaSettings,
     LLMProvider,
+    PhysicaSettings,
     get_settings,
     set_provider,
     update_settings,
-)
-from .catalog import (
-    list_models_for_provider,
-    get_available_models,
 )
 
 __all__ = [

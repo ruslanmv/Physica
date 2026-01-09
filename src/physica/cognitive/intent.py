@@ -20,11 +20,19 @@ class PhysicsIntent(BaseModel):
     This is the bridge between natural language and formal physics parameters.
     """
 
-    intent: str = Field(description="High-level intent (e.g., 'simulate_projectile', 'optimize_trajectory')")
+    intent: str = Field(
+        description="High-level intent (e.g., 'simulate_projectile', 'optimize_trajectory')"
+    )
     parameters: Dict[str, Any] = Field(default_factory=dict, description="Physical parameters")
-    objectives: List[str] = Field(default_factory=list, description="Optimization objectives")
-    constraints: List[str] = Field(default_factory=list, description="Physical constraints to enforce")
-    domain: str = Field(default="mechanics", description="Physics domain (mechanics, thermodynamics, EM)")
+    objectives: List[str] = Field(
+        default_factory=list, description="Optimization objectives"
+    )
+    constraints: List[str] = Field(
+        default_factory=list, description="Physical constraints to enforce"
+    )
+    domain: str = Field(
+        default="mechanics", description="Physics domain (mechanics, thermodynamics, EM)"
+    )
 
     def to_json(self) -> str:
         """Convert to JSON string."""
@@ -57,7 +65,8 @@ class IntentParser:
 physics problems into structured JSON representations.
 
 Your task is to parse user requests and output a JSON object with:
-- "intent": The main objective (e.g., "simulate_projectile", "optimize_trajectory", "analyze_heat_transfer")
+- "intent": The main objective
+  (e.g., "simulate_projectile", "optimize_trajectory", "analyze_heat_transfer")
 - "parameters": Physical parameters as a dictionary (e.g., {"velocity": 50.0, "angle": 45.0})
 - "objectives": List of optimization goals (e.g., ["maximize_range", "minimize_energy"])
 - "constraints": Physical laws to enforce (e.g., ["energy_conservation", "momentum_conservation"])
@@ -99,7 +108,9 @@ Output ONLY valid JSON, no additional text."""
             intent_dict = json.loads(response)
             return PhysicsIntent(**intent_dict)
         except Exception as e:
-            raise ValueError(f"Failed to parse LLM response as JSON: {e}\nResponse: {response}")
+            raise ValueError(
+                f"Failed to parse LLM response as JSON: {e}\nResponse: {response}"
+            ) from e
 
 
 @dataclass

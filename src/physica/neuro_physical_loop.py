@@ -19,7 +19,7 @@ import numpy as np
 from .cognitive.intent import IntentParser, PhysicsIntent, PlanningAgent
 from .cognitive.llm import LLMBackend, MockLLM
 from .conservation.laws import ConservationValidator, ConservationViolation
-from .engine import BallisticSimulator, TrajectoryResult
+from .engine import BallisticSimulator
 
 logger = logging.getLogger(__name__)
 
@@ -192,7 +192,9 @@ class NeuroPhysicalLoop:
             correction = None
             if not validation.is_valid:
                 if verbose:
-                    logger.warning(f"[Physical Layer] Violations detected: {len(validation.violations)}")
+                    logger.warning(
+                        f"[Physical Layer] Violations detected: {len(validation.violations)}"
+                    )
                     for v in validation.violations:
                         logger.warning(f"  - {v}")
 
@@ -222,9 +224,10 @@ class NeuroPhysicalLoop:
                     logger.info("[Success] All physical constraints satisfied!")
                 break
 
-            if iteration == self.max_iterations - 1:
-                if verbose:
-                    logger.warning("[Warning] Max iterations reached. Constraints may not be fully satisfied.")
+            if iteration == self.max_iterations - 1 and verbose:
+                logger.warning(
+                    "[Warning] Max iterations reached. Constraints may not be fully satisfied."
+                )
 
         # Execute final simulation
         result = self._execute_simulation(intent)

@@ -7,7 +7,7 @@ action principles, and variational methods.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Callable, Optional, Tuple
+from typing import Callable, Tuple
 
 import numpy as np
 

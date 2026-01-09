@@ -10,10 +10,9 @@ Key improvements vs the prototype:
 - Input validation and clear error messages
 """
 
+import logging
 from dataclasses import dataclass
 from typing import Any, Dict, Literal, Optional, Tuple
-
-import logging
 
 import numpy as np
 
@@ -27,11 +26,11 @@ def _try_import_jax() -> bool:
         import jax  # noqa: F401
         import jax.numpy as jnp  # noqa: F401
         from diffrax import (  # noqa: F401
-            diffeqsolve,
             Dopri5,
             ODETerm,
             PIDController,
             SaveAt,
+            diffeqsolve,
         )
 
         return True
@@ -89,7 +88,9 @@ class TrajectoryResult:
         return self.y[:, 3]
 
 
-def _validate_inputs(v0: float, angle_deg: float, max_time: float, steps: int) -> Tuple[float, float, float, int]:
+def _validate_inputs(
+    v0: float, angle_deg: float, max_time: float, steps: int
+) -> Tuple[float, float, float, int]:
     try:
         v0f = float(v0)
         ang = float(angle_deg)
@@ -145,7 +146,9 @@ class BallisticSimulator:
         ay = -self.gravity - self.drag_coeff * vy * vmag
         return np.array([vx, vy, ax, ay], dtype=float)
 
-    def _simulate_numpy(self, v0: float, angle_deg: float, max_time: float, steps: int) -> TrajectoryResult:
+    def _simulate_numpy(
+        self, v0: float, angle_deg: float, max_time: float, steps: int
+    ) -> TrajectoryResult:
         from scipy.integrate import solve_ivp
 
         ang = np.deg2rad(angle_deg)
@@ -205,9 +208,11 @@ class BallisticSimulator:
     # -------------------------
     # JAX/Diffrax backend (optional)
     # -------------------------
-    def _simulate_jax(self, v0: float, angle_deg: float, max_time: float, steps: int) -> TrajectoryResult:
+    def _simulate_jax(
+        self, v0: float, angle_deg: float, max_time: float, steps: int
+    ) -> TrajectoryResult:
         import jax.numpy as jnp
-        from diffrax import diffeqsolve, Dopri5, ODETerm, PIDController, SaveAt
+        from diffrax import Dopri5, ODETerm, PIDController, SaveAt, diffeqsolve
 
         def vf(_t, y, _args):
             _x, _y, vx, vy = y
@@ -275,14 +280,18 @@ class BallisticSimulator:
             (when available) precise ground impact.
         """
 
-        v0f, ang, mt, st = _validate_inputs(v0=v0, angle_deg=angle_deg, max_time=max_time, steps=steps)
+        v0f, ang, mt, st = _validate_inputs(
+            v0=v0, angle_deg=angle_deg, max_time=max_time, steps=steps
+        )
         be = backend or self.backend
         if be == "jax":
             return self._simulate_jax(v0=v0f, angle_deg=ang, max_time=mt, steps=st)
         return self._simulate_numpy(v0=v0f, angle_deg=ang, max_time=mt, steps=st)
 
 
-def _estimate_ground_impact_from_samples(t: np.ndarray, traj: np.ndarray) -> Optional[Dict[str, Any]]:
+def _estimate_ground_impact_from_samples(
+    t: np.ndarray, traj: np.ndarray
+) -> Optional[Dict[str, Any]]:
     """Estimate ground impact from discrete samples.
 
     Used as a backend-agnostic fallback (and for the JAX path).
@@ -295,10 +304,7 @@ def _estimate_ground_impact_from_samples(t: np.ndarray, traj: np.ndarray) -> Opt
             y0, y1 = float(y[i - 1]), float(y[i])
             x0, x1 = float(x[i - 1]), float(x[i])
             t0, t1 = float(t[i - 1]), float(t[i])
-            if y1 == y0:
-                alpha = 1.0
-            else:
-                alpha = (0.0 - y0) / (y1 - y0)
+            alpha = 1.0 if y1 == y0 else (0.0 - y0) / (y1 - y0)
             alpha = float(np.clip(alpha, 0.0, 1.0))
             x_imp = x0 + alpha * (x1 - x0)
             t_imp = t0 + alpha * (t1 - t0)

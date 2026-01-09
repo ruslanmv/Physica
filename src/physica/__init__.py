@@ -9,71 +9,11 @@ This creates AI systems that compute reality, not hallucinate it.
 """
 
 # Core physics engine
-from .engine import BallisticSimulator, TrajectoryResult
-
 # Classic agent
 from .agent import PhysicaAgent, ScientistAgent, TargetDistanceProblem
 
-# Physics-Informed Neural Networks (Learning Layer)
-from .pinn import (
-    PINN,
-    PINNConfig,
-    MechanicsPINN,
-    ThermodynamicsPINN,
-    ElectrostaticsPINN,
-    MagnetostaticsPINN,
-    MaxwellPINN,
-    PINNTrainer,
-)
-
-# Advanced Physics Domains (Phase II)
-from .domains import (
-    # Electromagnetism
-    ElectromagneticField,
-    ChargedParticle,
-    ParticleInFieldSimulator,
-    CyclotronMotion,
-    # Hamiltonian mechanics
-    HamiltonianSystem,
-    HamiltonianSimulator,
-    PoissonBracket,
-    # Lagrangian mechanics
-    LagrangianSystem,
-    LagrangianSimulator,
-    ActionPrinciple,
-    # Thermodynamics
-    ThermodynamicState,
-    IdealGasEOS,
-    VanDerWaalsEOS,
-    CarnotCycle,
-    OttoCycle,
-    HeatEngine,
-    EntropyCalculator,
-)
-
-# Cognitive Layer (LLM Integration)
-from .cognitive import (
-    IntentParser,
-    PhysicsIntent,
-    PlanningAgent,
-    LLMBackend,
-    MockLLM,
-    get_llm_backend,
-)
-
-# Conservation Laws
-from .conservation import (
-    ConservationLaw,
-    EnergyConservation,
-    MomentumConservation,
-    ConservationValidator,
-)
-
-# Neuro-Physical Loop (Core Innovation)
-from .neuro_physical_loop import NeuroPhysicalLoop, PhysicsValidation
-
 # Advanced Agentic AI
-from .agentic import AutonomousPhysicist, AdaptiveOptimizer
+from .agentic import AdaptiveOptimizer, AutonomousPhysicist
 
 # Phase III: Production-Ready Applications
 # Phase III-A: Physics-Constrained Autonomous AI
@@ -83,6 +23,65 @@ from .autonomous_control import (
     AutonomousController,
     ConstraintViolationFeedback,
     PhysicsConstraintValidator,
+)
+
+# Cognitive Layer (LLM Integration)
+from .cognitive import (
+    IntentParser,
+    LLMBackend,
+    MockLLM,
+    PhysicsIntent,
+    PlanningAgent,
+    get_llm_backend,
+)
+
+# Conservation Laws
+from .conservation import (
+    ConservationLaw,
+    ConservationValidator,
+    EnergyConservation,
+    MomentumConservation,
+)
+
+# Advanced Physics Domains (Phase II)
+from .domains import (
+    ActionPrinciple,
+    CarnotCycle,
+    ChargedParticle,
+    CyclotronMotion,
+    # Electromagnetism
+    ElectromagneticField,
+    EntropyCalculator,
+    HamiltonianSimulator,
+    # Hamiltonian mechanics
+    HamiltonianSystem,
+    HeatEngine,
+    IdealGasEOS,
+    LagrangianSimulator,
+    # Lagrangian mechanics
+    LagrangianSystem,
+    OttoCycle,
+    ParticleInFieldSimulator,
+    PoissonBracket,
+    # Thermodynamics
+    ThermodynamicState,
+    VanDerWaalsEOS,
+)
+from .engine import BallisticSimulator, TrajectoryResult
+
+# Neuro-Physical Loop (Core Innovation)
+from .neuro_physical_loop import NeuroPhysicalLoop, PhysicsValidation
+
+# Physics-Informed Neural Networks (Learning Layer)
+from .pinn import (
+    PINN,
+    ElectrostaticsPINN,
+    MagnetostaticsPINN,
+    MaxwellPINN,
+    MechanicsPINN,
+    PINNConfig,
+    PINNTrainer,
+    ThermodynamicsPINN,
 )
 
 # Phase III-B: Semiconductor Thermal & Power Digital Twin
