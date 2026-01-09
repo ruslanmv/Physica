@@ -4,19 +4,23 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "physica"
-version = "0.2.0"
-description = "Physics-World-Model: portable ballistic simulator + agent"
+version = "1.0.0"
+description = "Physics-World-Model: Neuro-Physical AI with PINNs, LLM Integration, and Differentiable Physics"
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
   { name = "Ruslan Magana Vsevolodovna", email = "ruslan@example.com" }
 ]
 license = { file = "LICENSE" }
-keywords = ["physics", "simulation", "ode", "agent", "world-model"]
+keywords = ["physics", "simulation", "ode", "pinn", "agent", "world-model", "agentic-ai", "llm", "differentiable-physics"]
 
 dependencies = [
   "numpy>=1.24.0",
   "scipy>=1.10.0",
+  "torch>=2.0.0",
+  "matplotlib>=3.7.0",
+  "pydantic>=2.0.0",
+  "tqdm>=4.65.0",
 ]
 
 [project.optional-dependencies]
@@ -26,6 +30,29 @@ jax = [
   "jaxlib>=0.4.13",
   "diffrax>=0.4.1",
   "equinox>=0.10.6",
+]
+# LLM integration for cognitive layer
+llm = [
+  "anthropic>=0.18.0",
+  "openai>=1.12.0",
+  "tiktoken>=0.5.2",
+]
+# Advanced visualization
+viz = [
+  "plotly>=5.18.0",
+  "ipywidgets>=8.1.0",
+]
+# All features
+all = [
+  "jax>=0.4.13",
+  "jaxlib>=0.4.13",
+  "diffrax>=0.4.1",
+  "equinox>=0.10.6",
+  "anthropic>=0.18.0",
+  "openai>=1.12.0",
+  "tiktoken>=0.5.2",
+  "plotly>=5.18.0",
+  "ipywidgets>=8.1.0",
 ]
 # Dev tools
 dev = [
